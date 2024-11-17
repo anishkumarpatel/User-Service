@@ -1,0 +1,144 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: udb-user-service
+  datasource:
+    url: jdbc:sqlserver://10.62.145.229:1433;databaseName=UDB_LOCAL;encrypt=true;trustServerCertificate=true;
+    username: app_dev
+    password: uDbapp#9876
+  jpa:
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.SQLServerDialect
+      show_sql: false
+      use_sql_comments: true
+      format_sql: true
+  config:
+    activate:
+      on-profile: dev
+
+allowed:
+  origins: https://swagger.udbdev.com/
+
+springdoc:
+  api-docs:
+    path: /udb-user-service/v3/api-docs
+
+file:
+  uploadFileFormat: PDF
+  uploadFilesize: 1024
+  uploadNumberOfFiles: 5
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+validation:
+  pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+  pattern1: "^[0-9]{10}$"
+  pin: ^\d{6}$
+
+app:
+  config:
+    value: fromYml
+  application_default_language: en_US
+
+login:
+  config:
+    count: 4
+
+session:
+  history:
+    default:
+      offset: 0
+      rowcount: 6
+
+udb:
+
+  data:
+    mongodb:
+      host: udb-app-branding-docdb.cluster-cz8sklsn8ccc.us-east-2.docdb.amazonaws.com
+      port: 27017
+      database: udb_branding_dev
+      username: app_dev
+      password: uDbappdev#9876
+      retryWrites: false
+      truststore:
+        password: changeit
+  redis:
+    hostname: localhost
+    port: 6379
+aws:
+  kafka:
+    bootstrap:
+      server: b-2.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092,b-3.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092,b-4.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092
+    access-key-id: ""
+    secret-access-key: ""
+pin:
+  history:
+    period: 136
+
+password:
+  history:
+    period: 6
+
+notification:
+  orchestrator:
+    service:
+      url: http://udb-notification-orchestrator
+web-client:
+  configuration:
+    service: http://udb-configuration-service
+  rule:
+    service:
+      url: http://udb-rule-service
+  branding:
+    service:
+      url: http://udb-branding-service
+  mfa:
+    service:
+      url: http://localhost:8080
+
+resilience4j:
+  retry:
+    instances:
+      orchestratorApiRetry:
+        maxAttempts: 3
+        waitDuration: 200ms
+        retryExceptions[0]: com.unisys.udb.user.exception.NotificationFailure
+
+util:
+  config:
+    localFormatter:
+      locale: en-US
+    dateFormatter:
+      zoneId: IST
+      dayMonthYear: "dd/MM/yyyy"
+      dayMonthTime: "dd/MM HH:mm a"
+      dayMonthYearShort: "dd/MM/yy"
+      dayMonthYearTime: "dd/MM/yyyy HH:mm a"
+
+
+management:
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+
+#logs configuration
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} Trace Id- %X{dd.trace_id} Span id- %X{dd.span_id} %msg%n"
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.unisys.udb.utility.auditing: INFO
+
+
+

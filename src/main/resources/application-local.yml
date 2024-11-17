@@ -1,0 +1,92 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: udb-user-service
+  datasource:
+    url: jdbc:sqlserver://10.62.145.229:1433;databaseName=UDB_LOCAL;encrypt=true;trustServerCertificate=true;
+    username: app_dev
+    password: uDbapp#9876
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        show_sql: false
+        use_sql_comments: true
+        format_sql: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/local
+      database: local
+  config:
+    activate:
+      on-profile: local
+
+allowed:
+  origins: https://swagger.udbdev.com/
+
+springdoc:
+  api-docs:
+    path: /udb-user-service/v3/api-docs
+
+file:
+  uploadFileFormat: PDF
+  uploadFilesize: 1024
+  uploadNumberOfFiles: 5
+
+login:
+  config:
+    count: 4
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: false
+
+validation:
+  pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+  pattern1: "^[0-9]{10}$"
+
+app:
+  config:
+    value: fromYml
+  application_default_language: en_US
+session:
+  history:
+    default:
+      offset: 0
+      rowcount: 6
+
+aws:
+  kafka:
+    bootstrap:
+      server: b-2.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092,b-3.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092,b-4.udbdevmsk.nyer7h.c4.kafka.us-east-2.amazonaws.com:9092
+
+pin:
+  history:
+    period: 6
+
+password:
+  history:
+    period: 6
+
+notification:
+  orchestrator:
+    service:
+      url: http://udb-notification-orchestrator
+
+util:
+  config:
+    localFormatter:
+      locale: en-US
+    dateFormatter:
+      dayMonthYear: "dd/MM/yyyy"
+      dayMonthTime: "dd/MM HH:mm a"
+      dayMonthYearShort: "dd/MM/yy"
+      dayMonthYearTime: "dd/MM/yyyy HH:mm a"

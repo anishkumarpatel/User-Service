@@ -1,0 +1,49 @@
+import com.unisys.udb.user.entity.CountryValidation;
+global com.unisys.udb.user.entity.CountryValidation countryValidation;
+
+dialect "mvel"
+
+rule "Checking Country is United Kingdom"
+ when
+  CountryValidation(country == "UK")
+ then
+  countryValidation.setUrl("uploadDoc");
+  countryValidation.setEvidenceRequired(true);
+  countryValidation.setCountry("UK")
+end
+
+rule "Checking Country is Columbia"
+ when
+  CountryValidation(country == "CO")
+ then
+  countryValidation.setUrl("uploadDoc");
+  countryValidation.setEvidenceRequired(true);
+  countryValidation.setCountry("CO")
+end
+
+rule "Checking Country is Argentina"
+ when
+  CountryValidation(country == "AR")
+ then
+  countryValidation.setUrl("requestReceived");
+  countryValidation.setEvidenceRequired(false);
+  countryValidation.setCountry("AR")
+end
+
+rule "Checking Country is Brazil"
+ when
+  CountryValidation(country == "BR")
+ then
+  countryValidation.setUrl("requestReceived");
+  countryValidation.setEvidenceRequired(false);
+  countryValidation.setCountry("BR")
+end
+
+rule "Checking Country is Costa Rica"
+ when
+  CountryValidation(country == "CR")
+ then
+  countryValidation.setUrl("requestReceived");
+  countryValidation.setEvidenceRequired(false);
+  countryValidation.setCountry("CR")
+end

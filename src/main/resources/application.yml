@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+aws:
+  kafka:
+    access-key-id: ${MSK_SECRET_KEY}
+    secret-access-key: ${MSK_ACCESS_KEY}

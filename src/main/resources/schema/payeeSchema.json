@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/payee",
+  "definitions": {
+    "payee": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "digitalCustomerProfileId": { "type": "string", "format": "uuid" },
+        "payeeName": { "type": "string" },
+        "payeeBankName": { "type": "string" },
+        "payeeAccountNumber": { "type": "string" },
+        "payeeNickname": { "type": ["string", "null"] },
+        "payeeBankCode": { "type": "string" },
+        "payeeReference": { "type": ["string", "null"] }
+      },
+      "required": [ "digitalCustomerProfileId", "payeeName","payeeBankName","payeeAccountNumber", "payeeBankCode"],
+      "title": "payee"
+    }
+
+  }
+}
